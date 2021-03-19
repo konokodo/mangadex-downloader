@@ -262,8 +262,8 @@
 
     //Get all page-urls of chapter
     function getChapterData(id, cb) {
-      $.get('https://mangadex.org/api/?id=' + id + '&type=chapter', (chapter_data) => {
-        cb(null, chapter_data);
+      $.get('https://api.mangadex.org/v2/chapter/' + id + '/', (chapter_data) => {
+        cb(null, chapter_data.data);
       }).fail((jqXHR, textStatus, error) => {
         cb({ textStatus: textStatus, error: error }, null);
       });
