@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         MangaDex Downloader
+// @name         MangaDex Downloader (API v2)
 // @version      0.20
 // @description  A userscript to add download-buttons to mangadex
 // @author       konokodo
