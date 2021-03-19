@@ -169,9 +169,9 @@
               username: link.parent().parent().find('div:nth-child(8)').text().trim()
             },
             posted: new Date(chapter_data.timestamp * 1000),
-            language: chapter_data.lang_name,
+            language: chapter_data.language.toUpperCase(),
             translated: (chapter_data.lang_name !== $('h6 > img').attr('title')),
-            images: chapter_data.page_array.map(function(filename) {
+            images: chapter_data.pages.map(function(filename) {
                 return chapter_data.server + chapter_data.hash + '/' + filename;
             })
           };
