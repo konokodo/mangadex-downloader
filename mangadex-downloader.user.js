@@ -178,13 +178,13 @@
 
           //Fetch all pages using JSZip
           let zip = new JSZip();
-          let zipFilename =
-            chapterInfo.manga +
-            (chapterInfo.language == "English" ? "" : " [" + language_iso[chapterInfo.language] + "]") +
-            " - c" + (chapterInfo.chapter < 100 ? chapterInfo.chapter < 10 ? '00' + chapterInfo.chapter : '0' + chapterInfo.chapter : chapterInfo.chapter) +
-            (chapterInfo.volume ? " (v" + (chapterInfo.volume < 10 ? '0' + chapterInfo.volume : chapterInfo.volume) + ")" : "") +
-            " [" + chapterInfo.groups + "]" +
+          let zipFilename = 
+            `${chapterInfo.manga} - ` + 
+            `${(chapterInfo.volume ? ('v' + chapterInfo.volume + ' ') : '')}` +
+            `c${chapterInfo.chapter} (mangadex; ${chapterInfo.groups.indexOf('no group') > -1 ? chapterInfo.uploader.username : chapterInfo.groups.join(', ')})` +
+            (chapterInfo.language === 'GB' ? '' : ` [${language_iso[chapterInfo.language]}]`) +
             (localStorage.getItem("file-extension") || '.zip');
+
           let page_count = chapterInfo.images.length;
           let active_downloads = 0;
           let failed = false;
@@ -220,16 +220,11 @@
             if (active_downloads < (localStorage.getItem("parallel-downloads") || 3) && page_urls.length > 0) {
               let to_download = page_urls.shift();
               let current_page = page_count - page_urls.length;
-              let page_filename =
-                (chapterInfo.manga +
-                (chapterInfo.language == "English" ? "" : " [" + language_iso[chapterInfo.language] + "]") +
-                " - c" + (chapterInfo.chapter < 100 ? chapterInfo.chapter < 10 ? '00' + chapterInfo.chapter : '0' + chapterInfo.chapter : chapterInfo.chapter) +
-                (chapterInfo.volume ? " (v" + (chapterInfo.volume < 10 ? '0' + chapterInfo.volume : chapterInfo.volume) + ")" : "") +
-                " - p" + (current_page < 100 ? current_page < 10 ? '00' + current_page : '0' + current_page : current_page) +
-                " [" + chapterInfo.groups + "]" +
-                '.' + to_download.split('.').pop())
-                .replace(/[\/\?<>\\:\*\|":\x00-\x1f\x80-\x9f]/gi, '_')
-
+              let page_filename = 
+                (`${chapterInfo.manga} - ` + 
+                `${(chapterInfo.volume ? ('v' + chapterInfo.volume + ' ') : '')}` +
+                `c${chapterInfo.chapter} - p${current_page}.${to_download.split('.').pop()}`)
+                .replace(/[\/\?<>\\:\*\|":\x00-\x1f\x80-\x9f]/gi, '_');
 
               active_downloads++;
               GM_xmlhttpRequest({
