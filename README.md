@@ -8,8 +8,7 @@ You can find its settings [here](https://mangadex.com/settings)
 
 #### Changes
 
-- Archive filename
-- Image filename
+- Archive and image filename format
 - Updated to use MangaDex API v2
 
 ## delete-all-chapters-of-user.js
